@@ -1,12 +1,10 @@
 # Bhojanwala
 
-Website for Bhojanwala, a food-ordering brand offering Biryani & Rolls, Indian Cuisines and Desserts.
-
-Built with React and Tailwind CSS and served and built by Vite (multi-page build).
+Bhojanwala, a food ordering brand. It has a home page, About and Contact pages, and one page each for Biryani & Rolls, Indian Cuisines and Desserts.
 
 ## Pages
 
-Each page is a small HTML shell (theme script, `<div id="root">`, module script) that loads its own React entry.
+Every page has a small HTML file in the root that loads its own entry file from `src/entries/`.
 
 | Page                    | HTML shell           | Entry                           | Page component                |
 | ----------------------- | -------------------- | ------------------------------- | ----------------------------- |
@@ -21,10 +19,10 @@ Each page is a small HTML shell (theme script, `<div id="root">`, module script)
 ## Tech stack
 
 - Vite 8, React 19, TypeScript 6
-- Tailwind CSS 4 (via `@tailwindcss/vite`)
+- Tailwind CSS 4
 - shadcn/ui (new-york style) on Radix UI
-- lucide-react icons (social icons are inline SVGs in `src/components/icons/social-icon.tsx`)
-- Montserrat Variable, self-hosted through Fontsource
+- lucide-react for icons (the social icons are inline SVGs in `src/components/icons/social-icon.tsx`, since lucide has no brand icons)
+- Montserrat, self-hosted through Fontsource
 - ESLint with `typescript-eslint`
 
 ## Getting started
@@ -34,7 +32,7 @@ npm install
 npm run dev
 ```
 
-Open the URL printed by Vite (usually http://localhost:5173). Pages are available at their file names, for example `/about.html`.
+Then open the URL Vite prints (usually http://localhost:5173). Each page lives at its file name, e.g. `/about.html`.
 
 | Command           | Description                                                    |
 | ----------------- | -------------------------------------------------------------- |
@@ -48,7 +46,7 @@ Open the URL printed by Vite (usually http://localhost:5173). Pages are availabl
 ```
 .
 ├── *.html                HTML shells, one per page (Vite multi-page inputs)
-├── _unused/              Files nothing references (see Open items)
+├── _unused/              Files nothing references (see To do)
 ├── vite.config.ts        Multi-page inputs and the "@" alias (points to src/)
 └── src/
     ├── index.css         Design tokens and base styles
@@ -70,11 +68,11 @@ Open the URL printed by Vite (usually http://localhost:5173). Pages are availabl
 
 ## Design
 
-- Tokens live in `src/index.css` (oklch CSS variables exposed through `@theme inline`): colours, radius, shadows, type scale. Use token utilities such as `bg-primary` or `text-muted-foreground` rather than hard-coded colours. See `/design-system.html`.
-- The brand name is set as text (`SiteWordmark`, Montserrat extra-bold) in the header and footer.
-- The footer is a dark surface in both themes: wordmark, links, copyright and social icons, all from `src/data/site.ts`.
-- Dark mode is class-based (`.dark` on `<html>`). The choice is stored in `localStorage` under `bhojanwala-theme`, falls back to the system preference, and is applied before first paint by a script in each HTML shell.
-- Motion is CSS-only and disabled under `prefers-reduced-motion: reduce`.
+- Colours, radius, shadows and the type scale are CSS variables in `src/index.css`. Use the token classes (`bg-primary`, `text-muted-foreground`) instead of hard-coded colours. `/design-system.html` shows them all.
+- The brand name is plain text (`SiteWordmark`, Montserrat extra-bold), not an image.
+- The footer is dark in both themes. Its links and social icons come from `src/data/site.ts`.
+- Dark mode is class-based (`.dark` on `<html>`). The choice is saved in `localStorage` as `bhojanwala-theme`, defaults to the system setting, and is applied by a small script in each HTML file before the page paints, so there's no flash.
+- Animations are CSS-only and switch off when the user prefers reduced motion.
 
 ## Editing content
 
@@ -103,11 +101,11 @@ sed -i '' 's#from "cn"#from "@/lib/utils"#' src/components/ui/*.tsx   # macOS; u
 npm rm cn
 ```
 
-## Open items
+## To do
 
-- Social links point to `#` until real destinations are provided.
-- "Order Now" links on the three listing pages point to `#`.
-- The hero video is about 14 MB and has no poster image. Several images are much larger than their displayed size.
-- `_unused/` holds files nothing references: `naan.cms` (a WebP image), `ab.jpg`, `bhojan.jpg`, `dal.jpg`, `des.jpg`, `pexels-s-migaj-746386.jpg`. Delete the folder if they are not needed.
-- No meta description or favicon.
-- `npm run lint` reports 2 expected `react-refresh/only-export-components` warnings (`button.tsx`, `badge.tsx`).
+- The social links in the footer still point to `#`.
+- So do the "Order Now" buttons on the three listing pages.
+- The hero video is about 14 MB and has no poster image, and several images are bigger than they need to be.
+- `_unused/` has files nothing references (`naan.cms`, which is really a WebP image, plus `ab.jpg`, `bhojan.jpg`, `dal.jpg`, `des.jpg` and `pexels-s-migaj-746386.jpg`). Delete the folder if you don't need them.
+- No meta description or favicon yet.
+- `npm run lint` shows 2 `react-refresh/only-export-components` warnings (`button.tsx`, `badge.tsx`). They come with the shadcn/ui components and are fine.
